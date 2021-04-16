@@ -8,7 +8,9 @@ should be investigated.
 ## How to use it
 Run 
 ```
+git submodule update --init
 pip install -r requirements.txt
+pip install -r looting_art_prototype/up_and_download/GLAMhack2020/requirements.txt
 ```
 Then
 ```
