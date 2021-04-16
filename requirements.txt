@@ -1,1 +1,1 @@
-Django==3.0.7django-rest-frameworkdjango-webpack-loaderpandas
+Django==3.0.7django-rest-framework==0.1.0django-upload-validator==1.1.5django-webpack-loader==0.7.0pandas==1.0.4

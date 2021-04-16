@@ -1,4 +1,5 @@
-from django.http import HttpResponse, HttpResponseServerError, HttpResponseNotAllowed
+from django.http import HttpResponse, HttpResponseBadRequest,\
+    HttpResponseServerError, HttpResponseNotAllowed
 from django.shortcuts import render
 import os
 from django.conf import settings
@@ -39,23 +40,25 @@ def index(request):
 
 # Upload file and give column to check/flag
 def upload_file(request):
-    if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            column = request.POST.get('column')
-            returnDownload(request.FILES['testCSV'], column)
-
-            if not os.path.exists(OUTPUT):
-                return HttpResponseServerError('Something went wrong')
-
-            with open(OUTPUT, 'r') as fh:
-                response = HttpResponse(fh.read(), content_type="text/csv")
-                response['Content-Disposition'] = 'attachment; filename=test.csv'
-
-            # Clean up
-            os.remove(INPUT)
-            os.remove(OUTPUT)
-
-            return response
-    else:
+    if request.method != 'POST':
         return HttpResponseNotAllowed(['POST'])
+
+    form = UploadFileForm(request.POST, request.FILES)
+    if not form.is_valid():
+        return HttpResponseBadRequest('Please upload a csv file')
+
+    column = request.POST.get('column')
+    returnDownload(request.FILES['testCSV'], column)
+
+    if not os.path.exists(OUTPUT):
+        return HttpResponseServerError('Something went wrong')
+
+    with open(OUTPUT, 'r') as fh:
+        response = HttpResponse(fh.read(), content_type="text/csv")
+        response['Content-Disposition'] = 'attachment; filename=test.csv'
+
+    # Clean up
+    os.remove(INPUT)
+    os.remove(OUTPUT)
+
+    return response
