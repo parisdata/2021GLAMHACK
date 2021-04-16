@@ -46,7 +46,7 @@ def upload_file(request):
             returnDownload(request.FILES['testCSV'], column)
 
             if not os.path.exists(OUTPUT):
-                raise HttpResponseServerError
+                return HttpResponseServerError('Something went wrong')
 
             with open(OUTPUT, 'r') as fh:
                 response = HttpResponse(fh.read(), content_type="text/csv")
