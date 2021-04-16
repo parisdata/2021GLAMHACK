@@ -1,5 +1,5 @@
 """
-ASGI config for looting_art_prototype project.
+ASGI config for looting_art project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'looting_art_prototype.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'looting_art.settings')
 
 application = get_asgi_application()

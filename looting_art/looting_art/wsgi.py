@@ -1,5 +1,5 @@
 """
-WSGI config for looting_art_prototype project.
+WSGI config for looting_art project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'looting_art_prototype.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'looting_art.settings')
 
 application = get_wsgi_application()
