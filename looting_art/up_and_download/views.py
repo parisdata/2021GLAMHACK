@@ -51,6 +51,11 @@ def upload_file(request):
             with open(OUTPUT, 'r') as fh:
                 response = HttpResponse(fh.read(), content_type="text/csv")
                 response['Content-Disposition'] = 'attachment; filename=test.csv'
-                return response
+
+            # Clean up
+            os.remove(INPUT)
+            os.remove(OUTPUT)
+
+            return response
     else:
         return HttpResponseNotAllowed(['POST'])
