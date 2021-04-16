@@ -1,1 +1,1 @@
-Djangodjango-rest-frameworkdjango-webpack-loaderpandas
+Django==3.0.7django-rest-frameworkdjango-webpack-loaderpandas
