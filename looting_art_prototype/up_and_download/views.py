@@ -6,8 +6,6 @@ import csv
 
 from .forms import UploadFileForm
 
-import up_and_download.scripts.counting as flagging
-
 import subprocess
 
 column = ''
@@ -21,7 +19,7 @@ def returnDownload(file, col):
         for chunk in file.chunks():
             destination.write(chunk)
     flag('output_test.csv', col)
-    
+
 
 # Index.html
 def index(request):
