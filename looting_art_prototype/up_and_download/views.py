@@ -11,7 +11,8 @@ import subprocess
 column = ''
 
 def flag(file, col):
-    cmd = 'python3 ./up_and_download/scripts/counting.py ' + file + ' looting_art_prototype/output_flagged.csv '
+    cmd = 'python3 ./up_and_download/scripts/counting.py ' + file +\
+          ' looting_art_prototype/output_flagged.csv --col ' + col
     subprocess.call(cmd, shell=True)
 
 def returnDownload(file, col):
