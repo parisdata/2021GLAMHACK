@@ -1,0 +1,3 @@
+[submodule "looting_art_prototype/up_and_download/GLAMhack2020"]
+	path = looting_art_prototype/up_and_download/GLAMhack2020
+	url = git@github.com:parisdata/GLAMhack2020.git
