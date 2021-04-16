@@ -6,7 +6,7 @@ from django.conf import settings
 
 from .forms import UploadFileForm
 
-import subprocess
+from subprocess import check_output, CalledProcessError
 
 COUNTING_SCRIPT = os.path.join(settings.BASE_DIR, 'up_and_download/scripts/counting.py')
 INPUT = os.path.join(settings.BASE_DIR, 'up_and_download/data/input.csv')
@@ -23,10 +23,10 @@ def flag(file, col):
         script=COUNTING_SCRIPT, input=file, output=OUTPUT, col=col,
         rfphrase=RF_PHRASES, rfname=RF_NAMES
     )
-    subprocess.call(cmd, shell=True)
+    check_output(cmd, shell=True)
 
 
-def returnDownload(file, col):
+def process_input_csv(file, col):
     with open(INPUT, 'wb+') as destination:
         for chunk in file.chunks():
             destination.write(chunk)
@@ -47,8 +47,15 @@ def upload_file(request):
     if not form.is_valid():
         return HttpResponseBadRequest('Please upload a csv file')
 
-    column = request.POST.get('column')
-    returnDownload(request.FILES['testCSV'], column)
+    try:
+        process_input_csv(
+            request.FILES['testCSV'],
+            request.POST.get('column')
+        )
+    except CalledProcessError:
+        return HttpResponseBadRequest(
+            'Couldn\'t process the csv file. '
+            'Please make sure the provenance column name is correct and try again')
 
     if not os.path.exists(OUTPUT):
         return HttpResponseServerError('Something went wrong')
