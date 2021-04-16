@@ -1,0 +1,26 @@
+word,type of flag
+likely,flaguncertainty
+probably,flaguncertainty
+possibly,flaguncertainty
+maybe,flaguncertainty
+?,flaguncertainty
+private collector,flaganonymity
+anonymous,flaganonymity
+art market,flaganonymity
+unidentified,flaganonymity
+unknown,flaganonymity
+property of a European collector,flaganonymity
+private collection,flaganonymity
+property of a lady,flaganonymity
+anon. ,flaganonymity
+?,flagpuncutation
+[,flagpuncutation
+transfer,flagmove
+removed,flagmove
+telephone,flagreliability
+to at least,flagreliability
+until at least,flagreliability
+by 19,flagreliability
+before 19,flagreliability
+according to,flagreliability
+said to have,flagreliability
