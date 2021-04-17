@@ -3,8 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <title>Looting Art</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
   </head>
-  <body style="font-family: sans-serif; background: thistle; text-align:center;">
+  <body>
     <h1>Looting Art Transformator</h1>
 
     <form name="form" enctype="multipart/form-data" action="/testCSV/" method="POST">

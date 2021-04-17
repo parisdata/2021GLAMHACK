@@ -16,7 +16,7 @@ venv/
 db.sqlite3
 
 # Static folder at project root
-/static/
+looting_art/static/
 
 # macOS
 ._*
