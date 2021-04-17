@@ -9,3 +9,9 @@ class UploadFileForm(forms.Form):
             allowed_types=['text/csv', 'text/plain']
         )]
     )
+    indicatorCSV = forms.FileField(
+        validators=[FileTypeValidator(
+            allowed_types=['text/csv', 'text/plain']
+        )],
+        required=False
+    )

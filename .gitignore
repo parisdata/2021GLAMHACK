@@ -1,6 +1,7 @@
 # App-specific
 input.csv
 output*.csv
+custom-red-flags-phrases.csv
 
 # Python
 *.pyc

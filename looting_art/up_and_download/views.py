@@ -11,26 +11,33 @@ from subprocess import check_output, CalledProcessError
 COUNTING_SCRIPT = os.path.join(settings.BASE_DIR, 'up_and_download/scripts/counting.py')
 INPUT = os.path.join(settings.BASE_DIR, 'up_and_download/data/input.csv')
 OUTPUT = os.path.join(settings.BASE_DIR, 'up_and_download/data/output_flagged.csv')
+CUSTOM_RF_PHRASES = os.path.join(settings.BASE_DIR, 'up_and_download/data/custom-red-flags-phrases.csv')
 RF_PHRASES = os.path.join(settings.BASE_DIR, 'up_and_download/data/red-flags-phrases-full.csv')
 RF_NAMES = os.path.join(settings.BASE_DIR, 'up_and_download/data/red-flags-names-full.csv')
 
 column = ''
 
 
-def flag(file, col):
+def flag(file, col, use_custom_indicators=False):
+    rfphrase = CUSTOM_RF_PHRASES if use_custom_indicators else RF_PHRASES
     cmd = 'python3 {script} {input} {output} --col {col}' \
           ' --rfphrase {rfphrase} --rfname {rfname}'.format(
         script=COUNTING_SCRIPT, input=file, output=OUTPUT, col=col,
-        rfphrase=RF_PHRASES, rfname=RF_NAMES
+        rfphrase=rfphrase, rfname=RF_NAMES
     )
     check_output(cmd, shell=True)
 
 
-def process_input_csv(file, col):
+def process_input_csv(file, col, indicator_file=None):
+    custom_indicator = indicator_file is not None
     with open(INPUT, 'wb+') as destination:
         for chunk in file.chunks():
             destination.write(chunk)
-    flag(INPUT, col)
+    if indicator_file is not None:
+        with open(CUSTOM_RF_PHRASES, 'wb+') as destination:
+            for chunk in indicator_file.chunks():
+                destination.write(chunk)
+    flag(INPUT, col, custom_indicator)
 
 
 # Index.html
@@ -48,9 +55,11 @@ def upload_file(request):
         return HttpResponseBadRequest('Please upload a csv file')
 
     try:
+        indicator_csv = request.FILES.get('indicatorCSV')
         process_input_csv(
             request.FILES['testCSV'],
-            request.POST.get('column')
+            request.POST.get('column'),
+            indicator_csv
         )
     except CalledProcessError:
         return HttpResponseBadRequest(
@@ -65,7 +74,11 @@ def upload_file(request):
         response['Content-Disposition'] = 'attachment; filename=test.csv'
 
     # Clean up
-    os.remove(INPUT)
-    os.remove(OUTPUT)
+    try:
+        os.remove(INPUT)
+        os.remove(OUTPUT)
+        os.remove(CUSTOM_RF_PHRASES)
+    except FileNotFoundError:
+        pass
 
     return response
