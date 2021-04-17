@@ -49,6 +49,10 @@ def about(request):
     return render(request, 'about.html')
 
 
+def error(request):
+    return render(request, 'error.html')
+
+
 # Upload file and give column to check/flag
 def upload_file(request):
     if request.method != 'POST':
@@ -56,7 +60,10 @@ def upload_file(request):
 
     form = UploadFileForm(request.POST, request.FILES)
     if not form.is_valid():
-        return HttpResponseBadRequest('Please upload a csv file')
+        context = {
+            'error_message': 'Wrong file format uploaded. Please try again with a csv file.'
+        }
+        return render(request, 'error.html', context)
 
     try:
         indicator_csv = request.FILES.get('indicatorCSV')
@@ -66,12 +73,17 @@ def upload_file(request):
             indicator_csv
         )
     except CalledProcessError:
-        return HttpResponseBadRequest(
-            'Couldn\'t process the csv file. '
-            'Please make sure the provenance column name is correct and try again')
+        context = {
+            'error_message': 'Couldn\'t process the csv file. '
+                             'Please make sure the provenance column name is correct and try again.'
+        }
+        return render(request, 'error.html', context)
 
     if not os.path.exists(OUTPUT):
-        return HttpResponseServerError('Something went wrong')
+        context = {
+            'error_message': 'Sorry, something went wrong. Please try again.'
+        }
+        return render(request, 'error.html', context)
 
     with open(OUTPUT, 'r') as fh:
         response = HttpResponse(fh.read(), content_type="text/csv")

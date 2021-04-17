@@ -23,4 +23,5 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('testCSV/', views.upload_file, name='upload_file'),
     path('about/', views.about, name='about'),
+    path('error/', views.error, name='error')
 ]

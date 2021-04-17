@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Looted Art Detector: Error</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Looted Art Detector</h1>
+      <h2>Error</h2>
+      <div>
+        <p>{{ error_message }}</p>
+        <p><a href="{% url 'index' %}">Back to main page</a>.</p>
+      </div>
+    </div>
+  </body>
+</html>
