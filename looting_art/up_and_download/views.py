@@ -87,7 +87,7 @@ def upload_file(request):
 
     with open(OUTPUT, 'r') as fh:
         response = HttpResponse(fh.read(), content_type="text/csv")
-        response['Content-Disposition'] = 'attachment; filename=test.csv'
+        response['Content-Disposition'] = 'attachment; filename=results.csv'
 
     # Clean up
     try:
