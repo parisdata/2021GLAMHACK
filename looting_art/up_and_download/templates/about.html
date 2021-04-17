@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Looted Art Detector: About</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Looted Art Detector</h1>
+      <h2>About</h2>
+      <div>
+        <p><b>Objective:</b> Identify high priority artworks for provenance research</p>
+        <p><b>Description:</b> Online Free Digital Tool</p>
+        <p><b>Approach:</b> Automatic text analysis using frequency counts</p>
+        <p>Note: The frequency counts target textual indicators of UNCERTAINTY, UNRELIABILITY,  or ANONYMITY, as well as the possible presence of RED FLAG names related to NAZI-looted art, forced sales and duress sales.
+The resulting calculations do not signify that an artwork is looted. They simply quantify observations concerning the text for further analysis.</p>
+      </div>
+      <h2>How it works</h2>
+      <div>
+        <p><b>The user uploads a CSV file that contains provenance texts</b></p>
+        <p>Note: The uploaded CSV can contain other information as well - urls, titles, artists, etc. The only requirement is that the CSV also contain one column with the provenance texts.</p>
+        <p>The program will ask the user to enter the name of the column that contains the provenance text.</p>
+        <p><b>The Provenance Text Analyser calculates the number of times key words appear in each provenance text and downloads a CSV named “results.csv”</b></p>
+        <p>Note: The results.csv file contains all the original information uploaded by the user PLUS additional columns with word counts.</p>
+        <p><b>The user uses his/her own tools to analyse the results.csv.</b></p>
+      </div>
+      <h2>Recommendations: How to analyse "results.csv"</h2>
+      <div>
+        <p>The Text Analysis provides quantitative indicators for the user to integrate in analysis. Which artworks are most likely to have problematic provenances?</p>
+        <p>1) Look for HIGH UNCERTAINTY</p>
+        <p>Recommendation: Create an "Uncertainty Index" (Uncertainty Flags/Word Count) and sort in descending order</p>
+        <p>Explanation: UNCERTAINTY counts words like "probably, "likely", "maybe", "possibly" and "?"</p>
+        <p>2)  Filter for presence of RED FLAG names and/or HIGH UNRELIABILITY</p>
+        <p>Red Flag names include Nazi art looters, Jewish collectors known to have been plundered and/or murdered, and dealers involved in at least one looted art claim</p>
+      </div>
+      <h2>Project information</h2>
+      <div>
+        <p>
+          This website was built as part of <a href="http://hack.glam.opendata.ch/event/2#top">GLAMhack2021</a>:
+          <a href="https://hack.glam.opendata.ch/project/112">project page</a>, <a href="https://github.com/parisdata/2021GLAMHACK">source code</a>.
+        </p>
+        <p>See <a href="https://www.openartdata.org/">Open Art Data</a> for more information.</p>
+        <p><a href="{% url 'index' %}">Back to main page</a>.</p>
+      </div>
+    </div>
+  </body>
+</html>

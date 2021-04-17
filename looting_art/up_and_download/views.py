@@ -45,6 +45,10 @@ def index(request):
     return render(request, 'index.html')
 
 
+def about(request):
+    return render(request, 'about.html')
+
+
 # Upload file and give column to check/flag
 def upload_file(request):
     if request.method != 'POST':

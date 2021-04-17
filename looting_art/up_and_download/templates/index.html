@@ -9,7 +9,7 @@
   <body>
     <div class="container">
       <h1>Looted Art Detector</h1>
-      <h2>counts indicators of unreliability, uncertainty, anonymity as well as known Red Flags</h2>
+      <h2>Counts indicators of unreliability, uncertainty, anonymity as well as known Red Flags. <a href="{% url 'about' %}">More information.</a></h2>
 
       <form name="form" enctype="multipart/form-data" action="/testCSV/" method="POST">
         {% csrf_token %}
